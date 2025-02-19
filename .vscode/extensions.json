@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "alexcvzz.vscode-sqlite",
+    "astro-build.astro-vscode",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "vitest.explorer"
+  ],
+  "unwantedRecommendations": []
+}

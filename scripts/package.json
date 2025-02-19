@@ -1,0 +1,14 @@
+{
+  "name": "@feeds/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh": "node --experimental-strip-types src/refresh.ts"
+  },
+  "dependencies": {
+    "@feeds/shared": "workspace:*",
+    "listr2": "8.2.5"
+  },
+  "devDependencies": {}
+}
