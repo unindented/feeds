@@ -1,0 +1,49 @@
+{
+  "name": "@feeds/root",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "refresh": "pnpm --filter @feeds/scripts run refresh",
+    "format": "prettier --write",
+    "lint": "eslint --report-unused-disable-directives",
+    "test": "vitest",
+    "test-coverage": "pnpm run test --coverage",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{astro,cjs,css,js,json,md,mjs,ts}": "pnpm run format",
+    "*.{astro,cjs,js,mjs,ts}": "pnpm run lint"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.22.0",
+    "@tsconfig/node22": "22.0.0",
+    "@tsconfig/strictest": "2.0.5",
+    "@types/node": "22.13.10",
+    "@vitest/coverage-v8": "3.0.8",
+    "@vitest/eslint-plugin": "1.1.37",
+    "eslint": "9.22.0",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-plugin-astro": "1.3.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-license-header": "0.8.0",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "globals": "16.0.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.5.0",
+    "listr2": "8.2.5",
+    "memfs": "4.17.0",
+    "prettier": "3.5.3",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "0.6.11",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.1",
+    "vitest": "3.0.8"
+  },
+  "packageManager": "pnpm@10.6.3",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

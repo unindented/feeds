@@ -1,0 +1,20 @@
+{
+  "name": "@feeds/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./assert.ts": "./src/assert.ts",
+    "./constants.ts": "./src/constants.ts",
+    "./sqlite.ts": "./src/sqlite.ts",
+    "./string.ts": "./src/string.ts",
+    "./types.ts": "./src/types.ts",
+    "./xml.ts": "./src/xml.ts",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@rowanmanning/feed-parser": "2.0.0",
+    "fast-xml-parser": "5.0.9"
+  },
+  "devDependencies": {}
+}
