@@ -1,0 +1,51 @@
+name: Refresh feeds
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # Run every 12 hours
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: 22
+  OPML_FILE_PATH: feeds.opml
+  SQLITE_FILE_PATH: feeds.sqlite3
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Configure account
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Refresh SQLite database
+        run: pnpm run refresh $(realpath $OPML_FILE_PATH) $(realpath $SQLITE_FILE_PATH)
+
+      - name: Commit and push SQLite database if changed
+        run: |
+          git add feeds.sqlite3
+          git commit -m "chore: update SQLite database" \
+            && git push \
+            || echo "No changes"
