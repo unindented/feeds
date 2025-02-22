@@ -7,6 +7,13 @@
       "request": "launch",
       "command": "pnpm run refresh ${cwd}/feeds.opml ${cwd}/feeds.sqlite3",
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Astro Dev",
+      "request": "launch",
+      "command": "pnpm run dev",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

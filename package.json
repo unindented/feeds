@@ -5,15 +5,21 @@
   "type": "module",
   "scripts": {
     "refresh": "pnpm --filter @feeds/scripts run refresh",
+    "dev": "pnpm --filter @feeds/website run dev",
+    "build": "pnpm --filter @feeds/website run build",
+    "preview": "pnpm --filter @feeds/website run preview",
+    "astro": "pnpm --filter @feeds/website run astro",
     "format": "prettier --write",
-    "lint": "eslint --report-unused-disable-directives",
-    "test": "vitest",
-    "test-coverage": "pnpm run test --coverage",
+    "test": "run-s test:*",
+    "test:types": "pnpm --filter @feeds/website run astro check",
+    "test:lint": "eslint --report-unused-disable-directives",
+    "test:unit": "vitest",
+    "test:unit:coverage": "pnpm run test:unit --coverage",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{astro,cjs,css,js,json,md,mjs,ts}": "pnpm run format",
-    "*.{astro,cjs,js,mjs,ts}": "pnpm run lint"
+    "*.{astro,cjs,js,mjs,ts}": "pnpm run test:lint"
   },
   "devDependencies": {
     "@eslint/js": "9.22.0",
@@ -33,6 +39,7 @@
     "lint-staged": "15.5.0",
     "listr2": "8.2.5",
     "memfs": "4.17.0",
+    "npm-run-all2": "7.0.2",
     "prettier": "3.5.3",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.6.11",
@@ -43,7 +50,8 @@
   "packageManager": "pnpm@10.6.3",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "sharp"
     ]
   }
 }
