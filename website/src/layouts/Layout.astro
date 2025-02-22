@@ -1,0 +1,56 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import "../styles/global.css";
+
+import Navigation from "../components/Navigation.astro";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+
+const defaultTitle = "Feeds — Unindented";
+---
+
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>
+      {title !== undefined ? `${title} — ${defaultTitle}` : defaultTitle}
+    </title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="author" content="Daniel Perez Alvarez" />
+    <meta name="description" content="My feed subscriptions." />
+    <meta content={Astro.generator} name="generator" />
+  </head>
+  <body>
+    <Navigation />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
