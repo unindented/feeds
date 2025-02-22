@@ -1,3 +1,4 @@
 packages:
   - scripts
   - shared
+  - website
