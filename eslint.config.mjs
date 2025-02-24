@@ -25,6 +25,7 @@ import vitestPlugin from "@vitest/eslint-plugin";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginLicenseHeader from "eslint-plugin-license-header";
+import playwrightPlugin from "eslint-plugin-playwright";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -192,6 +193,15 @@ export default tseslint.config(
       "vitest/require-to-throw-message": "error",
       "vitest/require-top-level-describe": "error",
       "vitest/valid-expect-in-promise": "error",
+    },
+  },
+  {
+    files: ["**/*.spec.?(c|m)[jt]s?(x)"],
+    plugins: {
+      playwright: playwrightPlugin,
+    },
+    rules: {
+      ...playwrightPlugin.configs["flat/recommended"].rules,
     },
   },
 );
