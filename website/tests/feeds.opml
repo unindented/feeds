@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.1">
+  <head>
+    <title>Test feeds</title>
+  </head>
+  <body>
+    <outline text="AI">
+      <outline text="Nicholas Carlini" type="rss" htmlUrl="https://nicholas.carlini.com/" xmlUrl="https://nicholas.carlini.com/writing/feed.xml"/>
+      <outline text="Simon Willison" type="rss" htmlUrl="https://simonwillison.net/" xmlUrl="https://simonwillison.net/atom/everything/"/>
+    </outline>
+    <outline text="Security">
+      <outline text="Brian Krebs" type="rss" htmlUrl="https://krebsonsecurity.com/" xmlUrl="https://krebsonsecurity.com/feed/"/>
+      <outline text="Scott Helme" type="rss" htmlUrl="https://scotthelme.co.uk/" xmlUrl="https://scotthelme.co.uk/rss/"/>
+      <outline text="Troy Hunt" type="rss" htmlUrl="https://www.troyhunt.com/" xmlUrl="https://www.troyhunt.com/rss/"/>
+    </outline>
+  </body>
+</opml>
