@@ -1,0 +1,18 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 2,
+      "staticDistDir": "website/dist/",
+      "url": ["/", "/feeds/krebsonsecurity-com/"]
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "render-blocking-resources": "off"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
