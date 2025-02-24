@@ -1,0 +1,49 @@
+name: Deploy app
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_call:
+    secrets:
+      SSH_USERNAME:
+        required: true
+      SSH_HOSTNAME:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  test:
+    needs: build
+    uses: ./.github/workflows/test.yml
+
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download website
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: website/dist
+
+      - name: Deploy
+        uses: ./.github/actions/rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        with:
+          options: --archive --delete --exclude-from .rsyncignore
+          source: website/dist/
+          target: ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/${{ github.event_name == 'pull_request' && 'dev.feeds.unindented.org' || 'feeds.unindented.org' }}/

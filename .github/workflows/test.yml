@@ -1,0 +1,98 @@
+name: Test app
+
+on:
+  workflow_call:
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # Using containers to have a consistent environment when doing visual
+    # regression testing across different operating systems.
+    # https://playwright.dev/docs/ci#via-containers
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.0-noble
+    env:
+      # Firefox is unable to launch if the `HOME` folder isn't owned by the
+      # current user.
+      HOME: /root
+    steps:
+      - name: Install Git LFS
+        run: |
+          ARCH=$(uname -m | sed 's/i386/386/;s/x86_64/amd64/;s/armv7l/arm/;s/aarch64/arm64/')
+          VERSION=$(curl --no-progress-meter https://api.github.com/repos/git-lfs/git-lfs/releases/latest | grep -oP '"tag_name": "\K[^"]+')
+          curl -L "https://github.com/git-lfs/git-lfs/releases/download/${VERSION}/git-lfs-linux-${ARCH}-${VERSION}.tar.gz" | tar -xz
+          mkdir -p "$HOME/.local"
+          git-lfs-*/install.sh --local
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download website
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: website/dist
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: |
+          pnpm run test:types
+          pnpm run test:lint
+          pnpm run test:unit
+          pnpm run test:e2e
+
+      - name: Upload e2e test reports
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: e2e-reports
+          path: |
+            e2e-report/
+            e2e-results/
+          retention-days: 3
+
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download website
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: website/dist
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Run Lighthouse tests
+        run: pnpm run test:lhci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

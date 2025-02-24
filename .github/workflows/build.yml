@@ -1,0 +1,42 @@
+name: Build app
+
+on:
+  workflow_call:
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build website
+        run: |
+          pnpm run build
+          make compress
+        env:
+          BASE_URL: ${{ github.event_name == 'pull_request' && 'https://dev.feeds.unindented.org/' || 'https://feeds.unindented.org/' }}
+
+      - name: Upload website
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: website/dist
+          retention-days: 1

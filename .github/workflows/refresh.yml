@@ -49,3 +49,11 @@ jobs:
           git commit -m "chore: update SQLite database" \
             && git push \
             || echo "No changes"
+
+  deploy:
+    needs: refresh
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_HOSTNAME: ${{ secrets.SSH_HOSTNAME }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

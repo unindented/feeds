@@ -1,0 +1,26 @@
+name: Rsync
+description: "Rsync files to a destination server over SSH"
+
+inputs:
+  options:
+    description: "Options"
+    required: true
+    default: "--archive --delete"
+  source:
+    description: "Source"
+    required: true
+  target:
+    description: "Target"
+    required: true
+
+outputs:
+  status:
+    description: "Status of the command"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.options }}
+    - ${{ inputs.source }}
+    - ${{ inputs.target }}
