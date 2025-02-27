@@ -21,6 +21,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 
 export default defineConfig({
+  devToolbar: {
+    enabled: false,
+  },
   env: {
     schema: {
       // eslint-disable-next-line @typescript-eslint/naming-convention
