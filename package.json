@@ -14,6 +14,7 @@
     "test:types": "pnpm --filter @feeds/website run astro check",
     "test:lint": "eslint --report-unused-disable-directives",
     "test:unit": "vitest",
+    "test:unit:coverage": "pnpm run test:unit --coverage",
     "test:e2e": "playwright test",
     "test:lhci": "pnpm --package @lhci/cli dlx lhci autorun",
     "prepare": "husky"
