@@ -13,7 +13,7 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@rowanmanning/feed-parser": "1.1.1",
+    "@rowanmanning/feed-parser": "1.1.2",
     "fast-xml-parser": "5.0.8"
   },
   "devDependencies": {}
