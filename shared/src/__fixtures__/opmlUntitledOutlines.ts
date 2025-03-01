@@ -17,18 +17,18 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
-export const opmlDeepNesting = `<?xml version="1.0" encoding="UTF-8"?>
+export const opmlUntitledOutlines = `<?xml version="1.0" encoding="UTF-8"?>
 <opml version="1.1">
   <head>
     <title>My feeds</title>
   </head>
   <body>
-    <outline text="Technology">
-      <outline text="Web Development">
-        <outline text="Lea Verou" type="rss" htmlUrl="https://lea.verou.me/" xmlUrl="https://lea.verou.me/feed.xml"/>
-        <outline text="Accessibility">
-          <outline text="Léonie Watson" type="rss" htmlUrl="https://tink.uk/" xmlUrl="https://tink.uk/feed.xml"/>
-        </outline>
+    <outline text="News">
+      <outline text="Technology">
+        <outline text="Ars Technica" type="rss" htmlUrl="https://arstechnica.com/" xmlUrl="https://arstechnica.com/feed/"/>
+      </outline>
+      <outline>
+        <outline type="rss" htmlUrl="https://www.theverge.com/" xmlUrl="https://www.theverge.com/rss/index.xml"/>
       </outline>
     </outline>
   </body>

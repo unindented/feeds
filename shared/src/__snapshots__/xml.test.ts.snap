@@ -1,6 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`flattenFeeds > 'gathers feeds from an OPML file with …' 1`] = `
+exports[`flattenFeeds > 'gathers feeds from an OPML document w…' 1`] = `
+[
+  {
+    "htmlUrl": "https://nicholas.carlini.com/",
+    "id": "nicholas-carlini-com",
+    "path": null,
+    "title": "Nicholas Carlini",
+    "xmlUrl": "https://nicholas.carlini.com/writing/feed.xml",
+  },
+  {
+    "htmlUrl": "https://simonwillison.net/",
+    "id": "simonwillison-net",
+    "path": null,
+    "title": "Simon Willison",
+    "xmlUrl": "https://simonwillison.net/atom/everything/",
+  },
+]
+`;
+
+exports[`flattenFeeds > 'gathers feeds from an OPML document w…' 2`] = `
 [
   {
     "htmlUrl": "https://fasterthanli.me/",
@@ -19,7 +38,26 @@ exports[`flattenFeeds > 'gathers feeds from an OPML file with …' 1`] = `
 ]
 `;
 
-exports[`flattenFeeds > 'gathers feeds from an OPML file with …' 2`] = `
+exports[`flattenFeeds > 'gathers feeds from an OPML document w…' 3`] = `
+[
+  {
+    "htmlUrl": "https://lea.verou.me/",
+    "id": "lea-verou-me",
+    "path": "Technology/Web Development",
+    "title": "Lea Verou",
+    "xmlUrl": "https://lea.verou.me/feed.xml",
+  },
+  {
+    "htmlUrl": "https://tink.uk/",
+    "id": "tink-uk",
+    "path": "Technology/Web Development/Accessibility",
+    "title": "Léonie Watson",
+    "xmlUrl": "https://tink.uk/feed.xml",
+  },
+]
+`;
+
+exports[`flattenFeeds > 'gathers feeds from an OPML document w…' 4`] = `
 [
   {
     "htmlUrl": "https://arstechnica.com/",
@@ -34,25 +72,6 @@ exports[`flattenFeeds > 'gathers feeds from an OPML file with …' 2`] = `
     "path": "News/Untitled",
     "title": "Untitled",
     "xmlUrl": "https://www.theverge.com/rss/index.xml",
-  },
-]
-`;
-
-exports[`flattenFeeds > 'gathers feeds from an OPML file witho…' 1`] = `
-[
-  {
-    "htmlUrl": "https://nicholas.carlini.com/",
-    "id": "nicholas-carlini-com",
-    "path": null,
-    "title": "Nicholas Carlini",
-    "xmlUrl": "https://nicholas.carlini.com/writing/feed.xml",
-  },
-  {
-    "htmlUrl": "https://simonwillison.net/",
-    "id": "simonwillison-net",
-    "path": null,
-    "title": "Simon Willison",
-    "xmlUrl": "https://simonwillison.net/atom/everything/",
   },
 ]
 `;
@@ -209,25 +228,27 @@ exports[`readOpmlFile > 'parses an OPML file with deep nested …' 1`] = `
             {
               "outline": [
                 {
-                  "htmlUrl": "https://arstechnica.com/",
-                  "text": "Ars Technica",
+                  "htmlUrl": "https://lea.verou.me/",
+                  "text": "Lea Verou",
                   "type": "rss",
-                  "xmlUrl": "https://arstechnica.com/feed/",
+                  "xmlUrl": "https://lea.verou.me/feed.xml",
                 },
-              ],
-              "text": "Technology",
-            },
-            {
-              "outline": [
                 {
-                  "htmlUrl": "https://www.theverge.com/",
-                  "type": "rss",
-                  "xmlUrl": "https://www.theverge.com/rss/index.xml",
+                  "outline": [
+                    {
+                      "htmlUrl": "https://tink.uk/",
+                      "text": "Léonie Watson",
+                      "type": "rss",
+                      "xmlUrl": "https://tink.uk/feed.xml",
+                    },
+                  ],
+                  "text": "Accessibility",
                 },
               ],
+              "text": "Web Development",
             },
           ],
-          "text": "News",
+          "text": "Technology",
         },
       ],
     },
@@ -264,6 +285,50 @@ exports[`readOpmlFile > 'parses an OPML file with shallow nest…' 1`] = `
             },
           ],
           "text": "Rust",
+        },
+      ],
+    },
+    "head": {
+      "title": "My feeds",
+    },
+    "version": "1.1",
+  },
+}
+`;
+
+exports[`readOpmlFile > 'parses an OPML file with untitled out…' 1`] = `
+{
+  "?xml": {
+    "encoding": "UTF-8",
+    "version": "1.0",
+  },
+  "opml": {
+    "body": {
+      "outline": [
+        {
+          "outline": [
+            {
+              "outline": [
+                {
+                  "htmlUrl": "https://arstechnica.com/",
+                  "text": "Ars Technica",
+                  "type": "rss",
+                  "xmlUrl": "https://arstechnica.com/feed/",
+                },
+              ],
+              "text": "Technology",
+            },
+            {
+              "outline": [
+                {
+                  "htmlUrl": "https://www.theverge.com/",
+                  "type": "rss",
+                  "xmlUrl": "https://www.theverge.com/rss/index.xml",
+                },
+              ],
+            },
+          ],
+          "text": "News",
         },
       ],
     },

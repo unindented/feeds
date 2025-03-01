@@ -26,12 +26,13 @@ import { atomWithRichDescription } from "./__fixtures__/atomWithRichDescription.
 import { opmlDeepNesting } from "./__fixtures__/opmlDeepNesting.ts";
 import { opmlNoNesting } from "./__fixtures__/opmlNoNesting.ts";
 import { opmlShallowNesting } from "./__fixtures__/opmlShallowNesting.ts";
+import { opmlUntitledOutlines } from "./__fixtures__/opmlUntitledOutlines.ts";
 import { rssWithDescriptionAndContent } from "./__fixtures__/rssWithDescriptionAndContent.ts";
 import { rssWithoutDescriptionOrContent } from "./__fixtures__/rssWithoutDescriptionOrContent.ts";
 import { rssWithPlainDescription } from "./__fixtures__/rssWithPlainDescription.ts";
 import { rssWithRichDescription } from "./__fixtures__/rssWithRichDescription.ts";
 import type { SimpleFeed } from "./types.ts";
-import { flattenFeeds, readFeed, readOpmlFile } from "./xml.ts";
+import { flattenFeeds, readFeed, readOpmlFile, unflattenFeeds } from "./xml.ts";
 
 vi.mock("node:fs");
 vi.mock("node:fs/promises");
@@ -51,6 +52,7 @@ describe("readOpmlFile", () => {
     ${"parses an OPML file without nested outlines"}      | ${opmlNoNesting}
     ${"parses an OPML file with shallow nested outlines"} | ${opmlShallowNesting}
     ${"parses an OPML file with deep nested outlines"}    | ${opmlDeepNesting}
+    ${"parses an OPML file with untitled outlines"}       | ${opmlUntitledOutlines}
   `("$name", async ({ sourceContent }: XmlTestEachColumns) => {
     const path = "/foobar.opml";
     await fs.promises.writeFile(path, sourceContent);
@@ -65,10 +67,11 @@ describe("flattenFeeds", () => {
   });
 
   it.each`
-    name                                                              | sourceContent
-    ${"gathers feeds from an OPML file without nested outlines"}      | ${opmlNoNesting}
-    ${"gathers feeds from an OPML file with shallow nested outlines"} | ${opmlShallowNesting}
-    ${"gathers feeds from an OPML file with deep nested outlines"}    | ${opmlDeepNesting}
+    name                                                                  | sourceContent
+    ${"gathers feeds from an OPML document without nested outlines"}      | ${opmlNoNesting}
+    ${"gathers feeds from an OPML document with shallow nested outlines"} | ${opmlShallowNesting}
+    ${"gathers feeds from an OPML document with deep nested outlines"}    | ${opmlDeepNesting}
+    ${"gathers feeds from an OPML document with untitled outlines"}       | ${opmlUntitledOutlines}
   `("$name", async ({ sourceContent }: XmlTestEachColumns) => {
     const path = "/foobar.opml";
     await fs.promises.writeFile(path, sourceContent);
@@ -76,6 +79,28 @@ describe("flattenFeeds", () => {
     const opmlDocument = await readOpmlFile(path);
 
     expect(flattenFeeds(opmlDocument)).toMatchSnapshot();
+  });
+});
+
+describe("unflattenFeeds", () => {
+  beforeEach(() => {
+    vol.reset();
+  });
+
+  it.each`
+    name                                                        | sourceContent
+    ${"rebuilds an OPML document without nested outlines"}      | ${opmlNoNesting}
+    ${"rebuilds an OPML document with shallow nested outlines"} | ${opmlShallowNesting}
+    ${"rebuilds an OPML document with deep nested outlines"}    | ${opmlDeepNesting}
+  `("$name", async ({ sourceContent }: XmlTestEachColumns) => {
+    const path = "/foobar.opml";
+    await fs.promises.writeFile(path, sourceContent);
+
+    const opmlDocument = await readOpmlFile(path);
+
+    expect(unflattenFeeds(flattenFeeds(opmlDocument)).opml.body).toStrictEqual(
+      opmlDocument.opml.body,
+    );
   });
 });
 

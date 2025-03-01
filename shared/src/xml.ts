@@ -28,6 +28,7 @@ import { feedItemSummaryMaxLength, feedPathSeparator } from "./constants.ts";
 import { truncateAtWord } from "./string.ts";
 import type {
   OpmlDocument,
+  OpmlOutline,
   OpmlOutlineGroup,
   OpmlOutlineItem,
   SimpleFeed,
@@ -80,6 +81,34 @@ export function flattenFeeds(opmlDocument: OpmlDocument): SimpleFeed[] {
 }
 
 /**
+ * Creates a hierarchical OPML document from a flat list of feeds. This function
+ * is the inverse of `flattenFeeds`.
+ * @param feeds Array of simplified feed objects with path information.
+ * @returns An OPML document with the feeds organized in their hierarchy.
+ */
+export function unflattenFeeds(feeds: SimpleFeed[]): OpmlDocument {
+  const opmlDocument: OpmlDocument = {
+    opml: {
+      body: {
+        outline: [],
+      },
+    },
+  };
+
+  for (const feed of feeds) {
+    const pathSegments = feed.path?.split(feedPathSeparator) ?? [];
+    insertFeedIntoOutline(opmlDocument.opml.body.outline, pathSegments, {
+      text: feed.title,
+      type: "rss",
+      htmlUrl: feed.htmlUrl,
+      xmlUrl: feed.xmlUrl,
+    });
+  }
+
+  return opmlDocument;
+}
+
+/**
  * Fetches and parses a feed from its XML URL.
  * @param feed The feed to read.
  * @returns Promise that resolves with an array of feed items.
@@ -110,11 +139,7 @@ export async function readFeed(feed: SimpleFeed): Promise<SimpleFeedItem[]> {
  * @param callback Function to call for each feed item encountered.
  */
 function walkOpmlOutline(
-  node:
-    | OpmlOutlineGroup
-    | OpmlOutlineItem
-    | OpmlOutlineGroup[]
-    | OpmlOutlineItem[],
+  node: OpmlOutline | OpmlOutlineGroup | OpmlOutlineItem,
   path: string | null,
   callback: (node: OpmlOutlineItem, path: string | null) => void,
 ): void {
@@ -128,6 +153,39 @@ function walkOpmlOutline(
   } else {
     callback(node, path);
   }
+}
+
+/**
+ * Recursively inserts a feed into the correct place in the outline structure.
+ * @param outline The current outline level to process.
+ * @param pathSegments Remaining path segments to process.
+ * @param feedItem The feed item to insert at the target location.
+ */
+function insertFeedIntoOutline(
+  outline: OpmlOutline,
+  pathSegments: string[],
+  feedItem: OpmlOutlineItem,
+): void {
+  const [currentSegment, ...remainingSegments] = pathSegments;
+
+  if (currentSegment === undefined) {
+    outline.push(feedItem);
+    return;
+  }
+
+  let outlineGroup = outline
+    .filter((item) => isOpmlOutlineGroup(item))
+    .find((item) => item.text === currentSegment);
+
+  if (outlineGroup === undefined) {
+    outlineGroup = {
+      text: currentSegment,
+      outline: [],
+    };
+    outline.push(outlineGroup);
+  }
+
+  insertFeedIntoOutline(outlineGroup.outline, remainingSegments, feedItem);
 }
 
 /**
