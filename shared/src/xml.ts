@@ -145,8 +145,8 @@ function walkOpmlOutline(
   callback: (node: OpmlOutlineItem, path: string | null) => void,
 ): void {
   if (Array.isArray(node)) {
-    for (const item of node) {
-      walkOpmlOutline(item, path, callback);
+    for (const n of node) {
+      walkOpmlOutline(n, path, callback);
     }
   } else if (isOpmlOutlineGroup(node)) {
     const newPath = `${path !== null ? path + feedPathSeparator : ""}${node.text ?? "Untitled"}`;
@@ -175,8 +175,8 @@ function insertFeedIntoOutline(
   }
 
   let outlineGroup = outline
-    .filter((item) => isOpmlOutlineGroup(item))
-    .find((item) => item.text === currentSegment);
+    .filter((node) => isOpmlOutlineGroup(node))
+    .find((node) => node.text === currentSegment);
 
   if (outlineGroup === undefined) {
     outlineGroup = {
@@ -190,9 +190,9 @@ function insertFeedIntoOutline(
 }
 
 /**
- * Type guard to determine if an OPML outline item is a group.
- * @param item The item to check.
- * @returns True if the item is a group (has an `outline` property), false
+ * Type guard to determine if an OPML outline node is a group.
+ * @param node The node to check.
+ * @returns True if the node is a group (has an `outline` property), false
  * otherwise.
  */
 function isOpmlOutlineGroup(
