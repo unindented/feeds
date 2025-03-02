@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./array.ts": "./src/array.ts",
     "./assert.ts": "./src/assert.ts",
     "./constants.ts": "./src/constants.ts",
     "./sqlite.ts": "./src/sqlite.ts",
