@@ -18,6 +18,12 @@
  */
 
 /**
+ * Utility type that extracts all truthy values from a type.
+ * @template T The input type to filter.
+ */
+export type Truthy<T> = Exclude<T, false | 0 | 0n | "" | null | undefined>;
+
+/**
  * Represents the root structure of an OPML document.
  */
 export interface OpmlDocument {
