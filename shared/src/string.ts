@@ -28,7 +28,8 @@ interface TruncateOptions {
 }
 
 /**
- * Truncates a string at a grapheme boundary to ensure proper handling of Unicode characters.
+ * Truncates a string at a grapheme boundary to ensure proper handling of
+ * Unicode characters.
  * @param str The string to truncate.
  * @param limit The maximum length of the string.
  * @param options Optional configuration for truncation behavior.

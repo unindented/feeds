@@ -53,7 +53,8 @@ export function flattenFeedsTask(): ListrTask<TasksContext> {
 
 /**
  * Creates a task that reads all feeds in parallel to fetch their latest items.
- * @returns A Listr task that updates the context with feed items from all feeds.
+ * @returns A Listr task that updates the context with feed items from all
+ * feeds.
  */
 export function readFeedsTask(): ListrTask<TasksContext> {
   return {

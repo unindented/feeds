@@ -30,7 +30,8 @@ import type { TasksContext } from "./types.ts";
 
 /**
  * Creates a task that opens the SQLite database connection.
- * @returns A Listr task that updates the context with an open database connection.
+ * @returns A Listr task that updates the context with an open database
+ * connection.
  */
 export function openDatabaseTask(): ListrTask<TasksContext> {
   return {

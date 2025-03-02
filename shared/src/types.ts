@@ -27,7 +27,8 @@ export interface OpmlDocument {
 }
 
 /**
- * Represents a collection of OPML outlines, which can be either groups or items.
+ * Represents a collection of OPML outlines, which can be either groups or
+ * items.
  */
 export type OpmlOutline = (OpmlOutlineGroup | OpmlOutlineItem)[];
 

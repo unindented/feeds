@@ -133,7 +133,8 @@ export async function readFeed(feed: SimpleFeed): Promise<SimpleFeedItem[]> {
 }
 
 /**
- * Recursively walks through an OPML outline structure, calling a callback for each feed item.
+ * Recursively walks through an OPML outline structure, calling a callback for
+ * each feed item.
  * @param node The current node in the OPML structure.
  * @param path The current path in the hierarchy, or null for root level.
  * @param callback Function to call for each feed item encountered.
@@ -189,9 +190,10 @@ function insertFeedIntoOutline(
 }
 
 /**
- * Type guard to determine if an OPML outline node is a group.
- * @param node The node to check.
- * @returns True if the node is a group (has an outline property), false otherwise.
+ * Type guard to determine if an OPML outline item is a group.
+ * @param item The item to check.
+ * @returns True if the item is a group (has an `outline` property), false
+ * otherwise.
  */
 function isOpmlOutlineGroup(
   node: OpmlOutlineGroup | OpmlOutlineItem,
@@ -213,7 +215,8 @@ function getFeedIdFromUrl(url: string): string {
 }
 
 /**
- * Gets the absolute URL for a feed item, handling both absolute and relative URLs.
+ * Gets the absolute URL for a feed item, handling both absolute and relative
+ * URLs.
  * @param item The feed item.
  * @returns The absolute URL for the item.
  * @throws {Error} If the item URL or feed self URL is missing or invalid.

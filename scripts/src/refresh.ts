@@ -41,8 +41,8 @@ const [, , opmlFileArg, sqliteFileArg] = argv;
 await main(resolve(assert(opmlFileArg)), resolve(assert(sqliteFileArg)));
 
 /**
- * Main function that orchestrates the feed refresh process. Reads feeds from an OPML file and
- * updates a SQLite database with the latest feed data.
+ * Main function that orchestrates the feed refresh process. Reads feeds from an
+ * OPML file and updates a SQLite database with the latest feed data.
  * @param opmlFilePath Path to the OPML file containing feed subscriptions.
  * @param sqliteFilePath Path to the SQLite database file to update.
  * @returns Promise that resolves when the refresh process is complete.
