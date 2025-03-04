@@ -40,7 +40,7 @@ test.describe("home page", () => {
 
 test.describe("feed page", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/feeds/krebsonsecurity-com");
+    await page.goto("/feeds/krebsonsecurity-com/");
   });
 
   test("has the right title", async ({ page }) => {
