@@ -1,0 +1,32 @@
+{
+  "en": {
+    "common.separator": ", ",
+    "common.fancySeparator": " — ",
+
+    "components.FeedItem.published": "Published",
+    "components.FeedItem.updated": "Updated",
+    "components.Footer.text": "Proudly over-engineered by Daniel Perez Alvarez",
+    "components.Footer.homeLabel": "My site",
+    "components.Footer.homeUrl": "https://www.unindented.org/",
+    "components.Footer.mastodonLabel": "My Mastodon account",
+    "components.Footer.mastodonUrl": "https://hachyderm.io/@unindented",
+    "components.Footer.blueskyLabel": "My Bluesky account",
+    "components.Footer.blueskyUrl": "https://bsky.app/profile/unindented.org",
+    "components.Footer.githubLabel": "Source code",
+    "components.Footer.githubUrl": "https://github.com/unindented/feeds",
+    "components.HeaderTitle.text": "My feeds",
+    "components.NavigationButton.label": "Toggle navigation",
+    "components.SearchButtonLarge.label": "Find something…",
+    "components.SearchButtonSmall.label": "Find something…",
+    "components.ThemeButton.label": "Toggle theme",
+
+    "layouts.Layout.appTitle": "Feeds",
+    "layouts.Layout.siteTitle": "Unindented",
+    "layouts.Layout.metaAuthor": "Daniel Perez Alvarez",
+    "layouts.Layout.metaDescription": "My feed subscriptions, as a static page.",
+
+    "pages.index.heading": "Latest entries",
+    "pages.notFound.heading": "Page not found",
+    "pages.notFound.text": "Sorry, the page you’re looking for isn’t there. Maybe it got moved, or deleted?"
+  }
+}
