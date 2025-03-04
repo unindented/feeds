@@ -21,11 +21,19 @@
 import { getCollection } from "astro:content";
 
 import FeedItems from "../components/FeedItems.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
 import Layout from "../layouts/Layout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const latestFeedItems = (await getCollection("feedItems")).slice(0, 100);
 ---
 
 <Layout>
-  <FeedItems feedItems={latestFeedItems} />
+  <FeedItems
+    heading={t("pages.index.heading")}
+    feedItems={latestFeedItems}
+    shouldShowFeedNames={true}
+  />
 </Layout>

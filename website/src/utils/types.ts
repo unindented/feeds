@@ -1,4 +1,3 @@
----
 /**
  * Copyright 2025 Daniel Perez Alvarez
  *
@@ -18,18 +17,22 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
-import Layout from "../layouts/Layout.astro";
+import type { CollectionEntry } from "astro:content";
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
----
+/**
+ * Represents a collection of outlines, which can be either groups or items.
+ */
+export type FeedOutline = (FeedOutlineGroup | FeedOutlineItem)[];
 
-<Layout title={t("pages.notFound.heading")}>
-  <h1>
-    {t("pages.notFound.heading")}
-  </h1>
-  <p>
-    {t("pages.notFound.text")}
-  </p>
-</Layout>
+/**
+ * Represents a single feed from the collection of feeds.
+ */
+export type FeedOutlineItem = CollectionEntry<"feeds">;
+
+/**
+ * Represents a group of outlines that can contain other groups or items.
+ */
+export interface FeedOutlineGroup {
+  text?: string;
+  outline: FeedOutline;
+}

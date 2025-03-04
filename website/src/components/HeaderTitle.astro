@@ -18,18 +18,29 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import type { HTMLAttributes } from "astro/types";
+
 import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
-import Layout from "../layouts/Layout.astro";
+import FeedIcon from "./icons/Feed.astro";
+
+type Props = HTMLAttributes<"div">;
+
+const props = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<Layout title={t("pages.notFound.heading")}>
-  <h1>
-    {t("pages.notFound.heading")}
-  </h1>
-  <p>
-    {t("pages.notFound.text")}
-  </p>
-</Layout>
+<div {...props}>
+  <a href="/" class="group flex items-center gap-2 font-extrabold">
+    <FeedIcon
+      aria-hidden="true"
+      class="fill-uwu-flamingo group-hover:fill-uwu-flamingo/85 h-6 w-6 transition-colors"
+    />
+    <span
+      class="text-uwu-flamingo group-hover:text-uwu-flamingo/85 transition-colors"
+    >
+      {t("components.HeaderTitle.text")}</span
+    >
+  </a>
+</div>

@@ -20,7 +20,13 @@
 
 import "../styles/global.css";
 
+import { compact, intersperse } from "@feeds/shared/array.ts";
+
+import Footer from "../components/Footer.astro";
+import HeaderBar from "../components/HeaderBar.astro";
+import HeaderTitle from "../components/HeaderTitle.astro";
 import Navigation from "../components/Navigation.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
 
 interface Props {
   title?: string;
@@ -28,29 +34,67 @@ interface Props {
 
 const { title } = Astro.props;
 
-const defaultTitle = "Feeds — Unindented";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang="en-us">
+<html lang={lang} class="h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
 
     <title>
-      {title !== undefined ? `${title} — ${defaultTitle}` : defaultTitle}
+      {
+        intersperse(
+          compact([
+            title,
+            t("layouts.Layout.appTitle"),
+            t("layouts.Layout.siteTitle"),
+          ]),
+          t("common.fancySeparator"),
+        )
+      }
     </title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="author" content="Daniel Perez Alvarez" />
-    <meta name="description" content="My feed subscriptions." />
-    <meta content={Astro.generator} name="generator" />
+    <meta name="author" content={t("layouts.Layout.metaAuthor")} />
+    <meta name="description" content={t("layouts.Layout.metaDescription")} />
+    <meta name="generator" content={Astro.generator} />
   </head>
-  <body>
-    <Navigation />
-    <main>
-      <slot />
-    </main>
+
+  <body
+    class="bg-uwu-base text-uwu-text selection:bg-uwu-overlay2/25 flex min-h-full break-words text-sm antialiased md:text-base lg:text-lg xl:text-xl"
+  >
+    <div class="w-full">
+      <div class="h-full lg:ms-72 xl:ms-80">
+        <header
+          class="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex"
+        >
+          <div
+            class="bg-uwu-crust/50 lg:border-uwu-surface0 contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-e lg:px-6 lg:pb-8 lg:pt-4 xl:w-80"
+          >
+            <HeaderTitle class="hidden lg:block" />
+            <HeaderBar
+              class="fixed top-0 z-50 px-4 sm:px-6 lg:start-72 lg:z-30 lg:px-8 xl:start-80"
+            />
+            <Navigation class="hidden lg:mt-10 lg:block xl:mt-12" />
+          </div>
+        </header>
+        <div class="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8">
+          <main class="flex-auto">
+            <article
+              class="mx-auto w-full max-w-2xl py-8 lg:max-w-3xl lg:py-10 xl:py-12"
+            >
+              <slot />
+            </article>
+          </main>
+          <Footer
+            class="mx-auto w-full max-w-2xl pb-8 lg:max-w-3xl lg:pb-10 xl:pb-12"
+          />
+        </div>
+      </div>
+    </div>
   </body>
 </html>

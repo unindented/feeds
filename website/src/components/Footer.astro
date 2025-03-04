@@ -1,0 +1,87 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
+import BlueskyIcon from "./icons/Bluesky.astro";
+import GitHubIcon from "./icons/GitHub.astro";
+import HouseIcon from "./icons/House.astro";
+import MastodonIcon from "./icons/Mastodon.astro";
+
+type Props = HTMLAttributes<"footer">;
+
+const props = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const links = [
+  {
+    label: t("components.Footer.homeLabel"),
+    url: t("components.Footer.homeUrl"),
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+    Icon: HouseIcon,
+  },
+  {
+    label: t("components.Footer.mastodonLabel"),
+    url: t("components.Footer.mastodonUrl"),
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+    Icon: MastodonIcon,
+  },
+  {
+    label: t("components.Footer.blueskyLabel"),
+    url: t("components.Footer.blueskyUrl"),
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+    Icon: BlueskyIcon,
+  },
+  {
+    label: t("components.Footer.githubLabel"),
+    url: t("components.Footer.githubUrl"),
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+    Icon: GitHubIcon,
+  },
+];
+---
+
+<footer {...props}>
+  <div
+    class="border-uwu-surface1 flex flex-col items-center justify-between gap-5 border-t pt-5 sm:flex-row lg:pt-7 xl:pt-9"
+  >
+    <p class="text-uwu-subtext0 text-xs md:text-sm lg:text-base xl:text-lg">
+      {t("components.Footer.text")}
+    </p>
+    <div class="flex gap-2">
+      {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        links.map(({ label, url, Icon }) => (
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          <a href={url} target="_blank" class="group">
+            <span class="sr-only">{label}</span>
+            <Icon
+              aria-hidden="true"
+              class="fill-uwu-subtext0 group-hover:fill-uwu-mauve h-6 w-6 p-1 transition-colors"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

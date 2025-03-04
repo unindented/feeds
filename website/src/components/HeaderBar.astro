@@ -1,0 +1,55 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+import HeaderTitle from "./HeaderTitle.astro";
+import NavigationButton from "./NavigationButton.astro";
+import SearchButtonLarge from "./SearchButtonLarge.astro";
+import SearchButtonSmall from "./SearchButtonSmall.astro";
+import ThemeButton from "./ThemeButton.astro";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className, ...otherProps } = Astro.props;
+---
+
+<div
+  {...otherProps}
+  class:list={[
+    className,
+    "bg-uwu-crust/50 inset-x-0 flex h-14 items-center justify-between gap-12 backdrop-blur-sm",
+  ]}
+>
+  <div class="bg-uwu-surface0 absolute inset-x-0 top-full h-px"></div>
+  <div class="hidden max-w-md flex-auto lg:block">
+    <SearchButtonLarge class="hidden lg:flex" />
+  </div>
+  <div class="flex items-center gap-5 lg:hidden">
+    <NavigationButton />
+    <HeaderTitle />
+  </div>
+  <div class="flex gap-4">
+    <div class="contents lg:hidden">
+      <SearchButtonSmall />
+    </div>
+    <ThemeButton />
+  </div>
+</div>

@@ -19,17 +19,21 @@
  */
 
 import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
-import Layout from "../layouts/Layout.astro";
+import HeaderButton from "./HeaderButton.astro";
+import MoonIcon from "./icons/Moon.astro";
+import SunIcon from "./icons/Sun.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<Layout title={t("pages.notFound.heading")}>
-  <h1>
-    {t("pages.notFound.heading")}
-  </h1>
-  <p>
-    {t("pages.notFound.text")}
-  </p>
-</Layout>
+<HeaderButton aria-label={t("components.ThemeButton.label")}>
+  <MoonIcon
+    aria-hidden="true"
+    class="fill-uwu-subtext0 group-hover:fill-uwu-mauve block h-8 w-8 p-2 transition-colors dark:hidden"
+  />
+  <SunIcon
+    aria-hidden="true"
+    class="fill-uwu-subtext0 group-hover:fill-uwu-mauve hidden h-8 w-8 p-2 transition-colors dark:block"
+  />
+</HeaderButton>

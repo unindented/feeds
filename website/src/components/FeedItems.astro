@@ -20,39 +20,30 @@
 
 import type { CollectionEntry } from "astro:content";
 
-import Date from "./Date.astro";
+import FeedItem from "./FeedItem.astro";
 
 interface Props {
+  heading: string;
   feedItems: CollectionEntry<"feedItems">[];
+  shouldShowFeedNames: boolean;
 }
 
-const { feedItems } = Astro.props;
+const { heading, feedItems, shouldShowFeedNames } = Astro.props;
 ---
 
-<ol>
+<h1 class="text-uwu-mauve mb-12 text-balance text-3xl font-bold lg:text-4xl">
+  {heading}
+</h1>
+<ol class="flex flex-col gap-5 lg:gap-7 xl:gap-9">
   {
-    feedItems.map(
-      ({ data: { htmlUrl, title, summary, published, updated } }) => (
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        <li>
-          <p>
-            <a href={htmlUrl}>{title}</a>
-          </p>
-          <p>{summary}</p>
-          {published && (
-            <p>
-              Published <Date date={published} />
-            </p>
-          )}
-          {updated &&
-            published &&
-            updated.getTime() - published.getTime() > 24 * 60 * 60 && (
-              <p>
-                Updated <Date date={updated} />
-              </p>
-            )}
-        </li>
-      ),
-    )
+    feedItems.map((feedItem) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      <li>
+        <FeedItem
+          feedItem={feedItem}
+          shouldShowFeedName={shouldShowFeedNames}
+        />
+      </li>
+    ))
   }
 </ol>
