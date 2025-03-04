@@ -5,6 +5,37 @@
 @custom-variant dark (&:not(.latte *));
 @custom-variant light (&:is(.frappe *, .macchiato *, .mocha *));
 
+@custom-variant hocus {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &:focus {
+    @slot;
+  }
+}
+@custom-variant hocus-within {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &:focus-within {
+    @slot;
+  }
+}
+@custom-variant hocus-visible {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &:focus-visible {
+    @slot;
+  }
+}
+
 @theme {
   --color-*: initial;
   --color-uwu-rosewater: rgb(var(--uwu-rosewater));
