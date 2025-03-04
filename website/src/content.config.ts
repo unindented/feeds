@@ -21,8 +21,8 @@ import { getAllFeedItems, getFeeds } from "@feeds/shared/sqlite.ts";
 import { defineCollection } from "astro:content";
 import { SQLITE_FILE_PATH } from "astro:env/server";
 
-import { feedItemSchema, feedSchema } from "./loaders/schemas";
-import { sqlite } from "./loaders/sqlite";
+import { feedItemSchema, feedSchema } from "./loaders/schemas.ts";
+import { sqlite } from "./loaders/sqlite.ts";
 
 const feeds = defineCollection({
   loader: sqlite(SQLITE_FILE_PATH, {

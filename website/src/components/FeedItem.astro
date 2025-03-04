@@ -1,0 +1,59 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+import FeedItemMeta from "./FeedItemMeta.astro";
+
+interface Props {
+  feedItem: CollectionEntry<"feedItems">;
+  shouldShowFeedName: boolean;
+}
+
+const { feedItem, shouldShowFeedName } = Astro.props;
+const feed = shouldShowFeedName
+  ? await getEntry("feeds", feedItem.data.feedId)
+  : undefined;
+
+const {
+  data: { htmlUrl, title, summary, published, updated },
+} = feedItem;
+---
+
+<a
+  href={htmlUrl}
+  target="_blank"
+  class="hover:bg-uwu-mantle/85 group -mx-4 -my-2 block px-4 py-2 transition-colors sm:rounded-lg lg:-mx-4 lg:-my-3 lg:px-4 lg:py-3 xl:-mx-6 xl:-my-4 xl:px-6 xl:py-4"
+>
+  <h2
+    class="text-uwu-blue group-hover:text-uwu-blue/85 mb-2 text-balance text-base font-semibold transition-colors md:text-lg lg:text-xl xl:text-2xl"
+  >
+    {title}
+  </h2>
+  <p class="text-uwu-subtext1 mb-2 line-clamp-2">
+    {summary}
+  </p>
+  <FeedItemMeta
+    feedTitle={feed !== undefined ? feed.data.title : undefined}
+    published={published}
+    updated={updated}
+  />
+</a>

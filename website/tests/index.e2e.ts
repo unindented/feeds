@@ -30,7 +30,11 @@ test.describe("home page", () => {
 
   test("has main navigation", async ({ page }) => {
     const nav = page.getByRole("navigation");
-    await expect(nav).toBeInViewport();
+    const navButton = page.getByRole("button", {
+      name: "Toggle navigation",
+      exact: true,
+    });
+    await expect(nav.or(navButton)).toBeInViewport();
   });
 });
 
@@ -45,6 +49,10 @@ test.describe("feed page", () => {
 
   test("has main navigation", async ({ page }) => {
     const nav = page.getByRole("navigation");
-    await expect(nav).toBeInViewport();
+    const navButton = page.getByRole("button", {
+      name: "Toggle navigation",
+      exact: true,
+    });
+    await expect(nav.or(navButton)).toBeInViewport();
   });
 });

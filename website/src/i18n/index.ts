@@ -17,19 +17,24 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import path from "node:path";
+import strings from "./strings.json";
 
-/**
- * Convert a platform path to a POSIX path.
- */
-export function posixifyPath(filePath: string): string {
-  return filePath.split(path.sep).join("/");
+const defaultLang: Language = "en";
+
+type Language = keyof typeof strings;
+type I18nKey = keyof (typeof strings)[typeof defaultLang];
+
+export function getLangFromUrl(url: URL): Language {
+  const [, lang] = url.pathname.split("/");
+  if (lang !== undefined && Object.hasOwn(strings, lang)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    return lang as Language;
+  }
+  return defaultLang;
 }
 
-/**
- * Unlike `path.posix.relative`, this function will accept a platform path and
- * return a POSIX path.
- */
-export function posixRelative(from: string, to: string): string {
-  return posixifyPath(path.relative(from, to));
+export function useTranslations(lang: Language) {
+  return function t(key: I18nKey): string {
+    return strings[lang][key];
+  };
 }

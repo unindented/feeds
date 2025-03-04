@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+@import "./colors.css";
+
+@custom-variant dark (&:not(.latte *));
+@custom-variant light (&:is(.frappe *, .macchiato *, .mocha *));
+
+@theme {
+  --color-*: initial;
+  --color-uwu-rosewater: rgb(var(--uwu-rosewater));
+  --color-uwu-flamingo: rgb(var(--uwu-flamingo));
+  --color-uwu-pink: rgb(var(--uwu-pink));
+  --color-uwu-mauve: rgb(var(--uwu-mauve));
+  --color-uwu-red: rgb(var(--uwu-red));
+  --color-uwu-maroon: rgb(var(--uwu-maroon));
+  --color-uwu-peach: rgb(var(--uwu-peach));
+  --color-uwu-yellow: rgb(var(--uwu-yellow));
+  --color-uwu-green: rgb(var(--uwu-green));
+  --color-uwu-teal: rgb(var(--uwu-teal));
+  --color-uwu-sky: rgb(var(--uwu-sky));
+  --color-uwu-sapphire: rgb(var(--uwu-sapphire));
+  --color-uwu-blue: rgb(var(--uwu-blue));
+  --color-uwu-lavender: rgb(var(--uwu-lavender));
+  --color-uwu-text: rgb(var(--uwu-text));
+  --color-uwu-subtext1: rgb(var(--uwu-subtext1));
+  --color-uwu-subtext0: rgb(var(--uwu-subtext0));
+  --color-uwu-overlay2: rgb(var(--uwu-overlay2));
+  --color-uwu-overlay1: rgb(var(--uwu-overlay1));
+  --color-uwu-overlay0: rgb(var(--uwu-overlay0));
+  --color-uwu-surface2: rgb(var(--uwu-surface2));
+  --color-uwu-surface1: rgb(var(--uwu-surface1));
+  --color-uwu-surface0: rgb(var(--uwu-surface0));
+  --color-uwu-base: rgb(var(--uwu-base));
+  --color-uwu-mantle: rgb(var(--uwu-mantle));
+  --color-uwu-crust: rgb(var(--uwu-crust));
+  --color-uwu-shadow: rgb(var(--uwu-shadow));
+}
