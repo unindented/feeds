@@ -29,7 +29,7 @@ type Entries<T> = {
 
 const pages = {
   home: "/",
-  feed: "/feeds/krebsonsecurity-com",
+  feed: "/feeds/krebsonsecurity-com/",
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 const pageEntries = Object.entries(pages) as Entries<typeof pages>;
