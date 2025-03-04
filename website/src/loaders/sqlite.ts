@@ -18,12 +18,11 @@
  */
 
 import { existsSync } from "node:fs";
+import path from "node:path";
 import { DatabaseSync, type DatabaseSyncOptions } from "node:sqlite";
 import { fileURLToPath } from "node:url";
 
 import type { Loader, LoaderContext } from "astro/loaders";
-
-import { posixRelative } from "./utils.ts";
 
 export interface SqliteOptions {
   /** Configuration options for the database connection. */
@@ -124,4 +123,19 @@ export function sqlite(fileName: string, options: SqliteOptions): Loader {
       });
     },
   };
+}
+
+/**
+ * Convert a platform path to a POSIX path.
+ */
+function posixifyPath(filePath: string): string {
+  return filePath.split(path.sep).join("/");
+}
+
+/**
+ * Unlike `path.posix.relative`, this function will accept a platform path and
+ * return a POSIX path.
+ */
+function posixRelative(from: string, to: string): string {
+  return posixifyPath(path.relative(from, to));
 }

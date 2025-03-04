@@ -1,0 +1,67 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { compact, intersperse } from "@feeds/shared/array.ts";
+
+import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
+import FeedItemDate from "./FeedItemDate.astro";
+
+interface Props {
+  feedTitle: string | undefined;
+  published: Date | null;
+  updated: Date | null;
+}
+
+const { feedTitle, published, updated } = Astro.props;
+
+const shouldShowPublished = published !== null;
+const shouldShowUpdated =
+  updated !== null &&
+  published !== null &&
+  updated.getTime() - published.getTime() > 24 * 60 * 60;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+{
+  (feedTitle !== undefined || shouldShowPublished || shouldShowUpdated) && (
+    <p class="text-uwu-subtext0 text-xs md:text-sm lg:text-base xl:text-lg">
+      {intersperse(
+        compact([
+          feedTitle !== undefined && <span>{feedTitle}</span>,
+          shouldShowPublished && (
+            <span>
+              {t("components.FeedItem.published")}
+              <FeedItemDate date={published} />
+            </span>
+          ),
+          shouldShowUpdated && (
+            <span>
+              {t("components.FeedItem.updated")}
+              <FeedItemDate date={updated} />
+            </span>
+          ),
+        ]),
+        t("common.fancySeparator"),
+      )}
+    </p>
+  )
+}

@@ -1,0 +1,56 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { isFeedOutlineGroup } from "../utils/feed.ts";
+import type { FeedOutlineGroup } from "../utils/types.ts";
+
+interface Props {
+  outlineGroup: FeedOutlineGroup;
+}
+
+const { outlineGroup } = Astro.props;
+---
+
+<ul>
+  {
+    outlineGroup.outline.map((item) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      <li>
+        {isFeedOutlineGroup(item) ? (
+          <details open>
+            <summary class="text-uwu-rosewater cursor-pointer pb-2 pt-3 font-semibold">
+              {item.text}
+            </summary>
+            <div class="ms-1.5">
+              <Astro.self outlineGroup={item} />
+            </div>
+          </details>
+        ) : (
+          <a
+            href={`/feeds/${item.id}`}
+            class="border-uwu-rosewater/25 bg-uwu-mantle text-uwu-text hover:border-uwu-rosewater hover:bg-uwu-crust hover:text-uwu-subtext1 block rounded-md rounded-s-none border-s px-4 py-2 transition-colors"
+          >
+            {item.data.title}
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>

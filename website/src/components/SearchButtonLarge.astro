@@ -18,18 +18,30 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
-import Layout from "../layouts/Layout.astro";
+import type { HTMLAttributes } from "astro/types";
+
+import { getLangFromUrl, useTranslations } from "../i18n";
+import SearchIcon from "./icons/Search.astro";
+
+type Props = HTMLAttributes<"button">;
+
+const { class: className, ...otherProps } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<Layout title={t("pages.notFound.heading")}>
-  <h1>
-    {t("pages.notFound.heading")}
-  </h1>
-  <p>
-    {t("pages.notFound.text")}
-  </p>
-</Layout>
+<button
+  {...otherProps}
+  type="button"
+  class:list={[
+    className,
+    "bg-uwu-base/85 text-uwu-overlay2 ring-uwu-overlay0 h-8 w-full cursor-pointer items-center gap-2 rounded-full pe-3 ps-2 text-sm opacity-75 ring-1 ring-inset transition-opacity hover:opacity-100",
+  ]}
+>
+  <SearchIcon aria-hidden="true" class="h-5 w-5 fill-current p-1" />
+  {t("components.SearchButtonLarge.label")}
+  <kbd class="ms-auto text-xs">
+    <kbd class="font-sans">⌘</kbd><kbd class="font-sans">K</kbd>
+  </kbd>
+</button>

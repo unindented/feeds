@@ -53,5 +53,9 @@ const { feedTitle, feedItems } = Astro.props;
 ---
 
 <Layout title={feedTitle}>
-  <FeedItems feedItems={feedItems} />
+  <FeedItems
+    heading={feedTitle}
+    feedItems={feedItems}
+    shouldShowFeedNames={false}
+  />
 </Layout>

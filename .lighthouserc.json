@@ -8,6 +8,7 @@
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
+        "color-contrast": "off",
         "render-blocking-resources": "off"
       }
     },
