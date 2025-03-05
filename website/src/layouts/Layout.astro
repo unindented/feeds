@@ -58,7 +58,11 @@ const t = useTranslations(lang);
       }
     </title>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
     <meta name="author" content={t("layouts.Layout.metaAuthor")} />
     <meta name="description" content={t("layouts.Layout.metaDescription")} />
     <meta name="generator" content={Astro.generator} />
