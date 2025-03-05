@@ -40,3 +40,4 @@ jobs:
           name: website
           path: website/dist
           retention-days: 1
+          include-hidden-files: true
