@@ -24,7 +24,7 @@ import HeaderTitle from "./HeaderTitle.astro";
 import NavigationButton from "./NavigationButton.astro";
 import SearchButtonLarge from "./SearchButtonLarge.astro";
 import SearchButtonSmall from "./SearchButtonSmall.astro";
-import ThemeButton from "./ThemeButton.astro";
+import ThemeSelector from "./ThemeSelector.astro";
 
 type Props = HTMLAttributes<"div">;
 
@@ -50,6 +50,6 @@ const { class: className, ...otherProps } = Astro.props;
     <div class="contents lg:hidden">
       <SearchButtonSmall />
     </div>
-    <ThemeButton />
+    <ThemeSelector />
   </div>
 </div>
