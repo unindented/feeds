@@ -26,9 +26,10 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<HeaderButton aria-label={t("components.SearchButtonSmall.label")}>
+<HeaderButton>
   <SearchIcon
     aria-hidden="true"
     class="fill-uwu-subtext0 group-hocus:fill-uwu-mauve h-8 w-8 p-2 transition-colors"
   />
+  <span class="sr-only">{t("components.SearchButtonSmall.label")}</span>
 </HeaderButton>

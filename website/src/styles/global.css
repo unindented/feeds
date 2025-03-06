@@ -5,6 +5,12 @@
 @custom-variant dark (&:not(.latte *));
 @custom-variant light (&:is(.frappe *, .macchiato *, .mocha *));
 
+@custom-variant defined {
+  &:defined {
+    @slot;
+  }
+}
+
 @custom-variant hocus {
   @media (hover: hover) {
     &:hover {

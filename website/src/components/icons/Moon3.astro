@@ -18,18 +18,16 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
-import HeaderButton from "./HeaderButton.astro";
-import BarsIcon from "./icons/Bars.astro";
+import type { HTMLAttributes } from "astro/types";
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+type Props = HTMLAttributes<"svg">;
+
+const props = Astro.props;
 ---
 
-<HeaderButton>
-  <BarsIcon
-    aria-hidden="true"
-    class="fill-uwu-subtext0 group-hocus:fill-uwu-mauve h-8 w-8 p-2 transition-colors"
-  />
-  <span class="sr-only">{t("components.NavigationButton.label")}</span>
-</HeaderButton>
+<svg viewBox="0 0 512 512" {...props}>
+  <path
+    fill-rule="evenodd"
+    d="M0 256a256 256 0 1 1 512 0 256 256 0 0 1-512 0Zm225 205.7C186 433.2 157.6 352 157.6 256c0-95.9 28.4-177.2 67.6-205.7a208 208 0 1 1 0 411.4Z"
+  ></path>
+</svg>
