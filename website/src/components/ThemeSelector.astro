@@ -1,0 +1,185 @@
+---
+/**
+ * Copyright 2025 Daniel Perez Alvarez
+ *
+ * This file is part of Static Feeds.
+ *
+ * Static Feeds is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Static Feeds is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
+import ClockIcon from "./icons/Clock.astro";
+import Moon1Icon from "./icons/Moon1.astro";
+import Moon2Icon from "./icons/Moon2.astro";
+import Moon3Icon from "./icons/Moon3.astro";
+import SunIcon from "./icons/Sun.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const radios = [
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+  { Icon: ClockIcon, label: "Auto", value: "auto", checked: true },
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+  { Icon: SunIcon, label: "Light", value: "latte" },
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+  { Icon: Moon1Icon, label: "Dark", value: "frappe" },
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+  { Icon: Moon2Icon, label: "Darker", value: "macchiato" },
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
+  { Icon: Moon3Icon, label: "Darkest", value: "mocha" },
+];
+---
+
+<my-theme-selector class="defined:block hidden">
+  <form>
+    <fieldset
+      class="bg-uwu-mantle hocus:bg-uwu-crust flex rounded-md transition-colors"
+    >
+      <legend class="sr-only">{t("components.ThemeSelector.label")}</legend>
+      {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        radios.map(({ Icon, label, value, checked }) => (
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          <label class="has-checked:text-uwu-mauve hocus:text-uwu-mauve cursor-pointer transition-colors">
+            <input
+              type="radio"
+              name="color-scheme"
+              value={value}
+              checked={checked}
+              class="sr-only"
+            />
+            <Icon
+              aria-hidden="true"
+              class="block h-8 w-8 fill-current p-2 transition-colors"
+            />
+            <span class="sr-only">{label}</span>
+          </label>
+        ))
+      }
+    </fieldset>
+  </form>
+</my-theme-selector>
+
+<script>
+  class MyThemeSelector extends HTMLElement {
+    static storageKeyAttribute = "storage-key";
+    static storageKeyDefaultValue = "color-scheme";
+    static prefersLightMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: light)",
+    );
+
+    #isSetUp: boolean;
+    #storageKey: string;
+
+    constructor() {
+      super();
+
+      this.#isSetUp = false;
+      this.#storageKey = MyThemeSelector.storageKeyDefaultValue;
+    }
+
+    connectedCallback() {
+      this.#storageKey =
+        this.getAttribute(MyThemeSelector.storageKeyAttribute) ??
+        MyThemeSelector.storageKeyDefaultValue;
+
+      this.addEventListener("change", this.#handleInputChange);
+      window.addEventListener("storage", this.#handleStorageChange);
+      window.addEventListener("load", this.#handleMiscChange);
+      MyThemeSelector.prefersLightMediaQuery.addEventListener(
+        "change",
+        this.#handleMiscChange,
+      );
+
+      this.#isSetUp = true;
+    }
+
+    async disconnectedCallback() {
+      // https://nolanlawson.com/2024/12/01/avoiding-unnecessary-cleanup-work-in-disconnectedcallback/
+      await Promise.resolve();
+      if (this.isConnected || !this.#isSetUp) {
+        return;
+      }
+
+      window.removeEventListener("storage", this.#handleStorageChange);
+      window.removeEventListener("load", this.#handleMiscChange);
+      MyThemeSelector.prefersLightMediaQuery.removeEventListener(
+        "change",
+        this.#handleMiscChange,
+      );
+    }
+
+    #handleInputChange = (event: Event) => {
+      const { value: colorScheme } = event.target as HTMLInputElement;
+      this.#updateColorScheme(colorScheme);
+    };
+
+    #handleStorageChange = (event: StorageEvent) => {
+      if (event.key === this.#storageKey) {
+        this.#updateColorScheme(event.newValue ?? "auto");
+      }
+    };
+
+    #handleMiscChange = () => {
+      const colorScheme = localStorage.getItem(this.#storageKey) ?? "auto";
+      this.#updateColorScheme(colorScheme);
+    };
+
+    #updateColorScheme = (colorScheme: string) => {
+      this.#updateColorSchemeRoot(colorScheme);
+      this.#updateColorSchemeMeta(colorScheme);
+      this.#updateColorSchemeInputs(colorScheme);
+      this.#updateColorSchemeStorage(colorScheme);
+    };
+
+    #updateColorSchemeRoot = (colorScheme: string) => {
+      const { classList: rootClassList } = document.documentElement;
+      rootClassList.toggle("latte", colorScheme === "latte");
+      rootClassList.toggle("frappe", colorScheme === "frappe");
+      rootClassList.toggle("macchiato", colorScheme === "macchiato");
+      rootClassList.toggle("mocha", colorScheme === "mocha");
+    };
+
+    #updateColorSchemeMeta = (colorScheme: string) => {
+      const prefersLight = MyThemeSelector.prefersLightMediaQuery.matches;
+      const isLight =
+        colorScheme === "latte" || (colorScheme === "auto" && prefersLight);
+
+      const meta = document.querySelector<HTMLMetaElement>(
+        'meta[name="color-scheme"]',
+      );
+      meta?.setAttribute("content", isLight ? "light" : "dark");
+    };
+
+    #updateColorSchemeInputs = (colorScheme: string) => {
+      const inputs = this.querySelectorAll<HTMLInputElement>(
+        `[value="${colorScheme}"]`,
+      );
+      inputs.forEach((input) => {
+        input.checked = true;
+      });
+    };
+
+    #updateColorSchemeStorage = (colorScheme: string) => {
+      if (colorScheme) {
+        localStorage.setItem(this.#storageKey, colorScheme);
+      } else {
+        localStorage.removeItem(this.#storageKey);
+      }
+    };
+  }
+
+  customElements.define("my-theme-selector", MyThemeSelector);
+</script>
