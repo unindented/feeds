@@ -100,5 +100,13 @@ const t = useTranslations(lang);
         </div>
       </div>
     </div>
+
+    <script>
+      import { apply, isSupported } from "invokers-polyfill/fn";
+
+      if (!isSupported()) {
+        apply();
+      }
+    </script>
   </body>
 </html>
