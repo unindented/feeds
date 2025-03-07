@@ -18,15 +18,32 @@
  * along with Static Feeds. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import type { HTMLAttributes } from "astro/types";
+
 import { getLangFromUrl, useTranslations } from "../i18n/index.ts";
 import HeaderButton from "./HeaderButton.astro";
 import SearchIcon from "./icons/Search.astro";
+
+interface Props extends HTMLAttributes<"button"> {
+  searchDialogId: string;
+}
+
+const { searchDialogId, class: className, ...otherProps } = Astro.props;
+// These do not exist on type `ButtonHTMLAttributes` yet.
+const unsupportedProps = {
+  command: "show-modal",
+  commandfor: searchDialogId,
+};
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<HeaderButton>
+<HeaderButton
+  {...otherProps}
+  {...unsupportedProps}
+  class:list={[className, "scripting-none:hidden"]}
+>
   <SearchIcon
     aria-hidden="true"
     class="fill-uwu-subtext0 group-hocus:fill-uwu-mauve h-8 w-8 p-2 transition-colors"

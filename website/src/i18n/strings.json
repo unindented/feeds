@@ -18,6 +18,10 @@
     "components.NavigationButton.label": "Toggle navigation",
     "components.SearchButtonLarge.label": "Find something…",
     "components.SearchButtonSmall.label": "Find something…",
+    "components.SearchDialog.inputLabel": "Search",
+    "components.SearchDialog.inputPlaceholder": "Find something…",
+    "components.SearchDialog.searchLabel": "Search",
+    "components.SearchDialog.cancelLabel": "Cancel",
     "components.ThemeSelector.label": "Choose a color scheme",
 
     "layouts.Layout.appTitle": "Feeds",

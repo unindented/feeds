@@ -24,6 +24,7 @@ import HeaderTitle from "./HeaderTitle.astro";
 import NavigationButton from "./NavigationButton.astro";
 import SearchButtonLarge from "./SearchButtonLarge.astro";
 import SearchButtonSmall from "./SearchButtonSmall.astro";
+import SearchDialog from "./SearchDialog.astro";
 import ThemeSelector from "./ThemeSelector.astro";
 
 type Props = HTMLAttributes<"div">;
@@ -35,12 +36,12 @@ const { class: className, ...otherProps } = Astro.props;
   {...otherProps}
   class:list={[
     className,
-    "bg-uwu-crust/50 inset-x-0 flex h-14 items-center justify-between gap-12 backdrop-blur-sm",
+    "bg-uwu-crust/50 inset-x-0 flex h-14 items-center justify-between gap-6 backdrop-blur-sm",
   ]}
 >
   <div class="bg-uwu-surface0 absolute inset-x-0 top-full h-px"></div>
   <div class="hidden max-w-md flex-auto lg:block">
-    <SearchButtonLarge class="hidden lg:flex" />
+    <SearchButtonLarge searchDialogId="search-dialog" class="hidden lg:flex" />
   </div>
   <div class="flex items-center gap-5 lg:hidden">
     <NavigationButton />
@@ -48,8 +49,10 @@ const { class: className, ...otherProps } = Astro.props;
   </div>
   <div class="flex gap-4">
     <div class="contents lg:hidden">
-      <SearchButtonSmall />
+      <SearchButtonSmall searchDialogId="search-dialog" />
     </div>
     <ThemeSelector />
   </div>
 </div>
+
+<SearchDialog id="search-dialog" />

@@ -11,6 +11,22 @@
   }
 }
 
+@custom-variant scripting-none {
+  @media (scripting: none) {
+    @slot;
+  }
+}
+@custom-variant scripting-initial {
+  @media (scripting: initial-only) {
+    @slot;
+  }
+}
+@custom-variant scripting {
+  @media (scripting: enabled) {
+    @slot;
+  }
+}
+
 @custom-variant hocus {
   @media (hover: hover) {
     &:hover {
