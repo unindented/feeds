@@ -23,9 +23,16 @@ import type { HTMLAttributes } from "astro/types";
 import { getLangFromUrl, useTranslations } from "../i18n";
 import SearchIcon from "./icons/Search.astro";
 
-type Props = HTMLAttributes<"button">;
+interface Props extends HTMLAttributes<"button"> {
+  searchDialogId: string;
+}
 
-const { class: className, ...otherProps } = Astro.props;
+const { searchDialogId, class: className, ...otherProps } = Astro.props;
+// These do not exist on type `ButtonHTMLAttributes` yet.
+const unsupportedProps = {
+  command: "show-modal",
+  commandfor: searchDialogId,
+};
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -33,10 +40,11 @@ const t = useTranslations(lang);
 
 <button
   {...otherProps}
+  {...unsupportedProps}
   type="button"
   class:list={[
     className,
-    "bg-uwu-base/85 text-uwu-overlay2 ring-uwu-overlay0 hocus:opacity-100 h-8 w-full cursor-pointer items-center gap-2 rounded-full pe-3 ps-2 text-sm opacity-75 ring-1 ring-inset transition-opacity",
+    "scripting-none:hidden bg-uwu-base/85 text-uwu-overlay2 ring-uwu-overlay0 hocus:opacity-100 h-8 w-full cursor-pointer items-center gap-2 rounded-full pe-3 ps-2 text-sm opacity-75 ring-1 ring-inset transition-opacity",
   ]}
 >
   <SearchIcon aria-hidden="true" class="h-5 w-5 fill-current p-1" />
