@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@feeds/shared": "workspace:*",
+    "@sqlite.org/sqlite-wasm": "3.49.1-build2",
     "@tailwindcss/vite": "4.0.14",
     "astro": "5.5.2",
     "invokers-polyfill": "0.5.2",
