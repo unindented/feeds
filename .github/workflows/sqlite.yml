@@ -1,0 +1,76 @@
+name: SQLite extensions
+
+on:
+  workflow_dispatch: # Allow manual triggering
+
+env:
+  SQLITE_VERSION: 3470200
+  SQLITE_YEAR: 2024
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            arch: x64
+            ext: so
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            ext: so
+          - os: macos-13
+            arch: x64
+            ext: dylib
+          - os: macos-14
+            arch: arm64
+            ext: dylib
+          # - os: windows-2022
+          #   arch: x64
+          #   ext: dll
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Download SQLite source
+        shell: bash
+        run: |
+          curl -L https://www.sqlite.org/${SQLITE_YEAR}/sqlite-src-${SQLITE_VERSION}.zip -o sqlite.zip
+          unzip sqlite.zip
+          rm -f sqlite.zip
+          mv sqlite-src-${SQLITE_VERSION} sqlite
+
+      - name: Make files
+        shell: bash
+        working-directory: ./sqlite
+        run: |
+          ./configure
+          make fts5.c sqlite3.h sqlite3ext.h
+
+      - name: Compile files
+        if: startsWith(matrix.os, 'ubuntu')
+        shell: bash
+        working-directory: ./sqlite
+        run: |
+          cc -O2 -fPIC -shared fts5.c -o fts5.${{ matrix.ext }}
+
+      - name: Compile files
+        if: startsWith(matrix.os, 'macos')
+        shell: bash
+        working-directory: ./sqlite
+        run: |
+          cc -O2 -fPIC -dynamiclib fts5.c -o fts5.${{ matrix.ext }}
+
+      - name: Compile files
+        if: startsWith(matrix.os, 'windows')
+        shell: cmd
+        working-directory: ./sqlite
+        run: |
+          cl fts5.c -link -dll -out:fts5.${{ matrix.ext }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fts5-${{ matrix.arch }}-${{ matrix.ext }}
+          path: sqlite/fts5.${{ matrix.ext }}
+          retention-days: 7
