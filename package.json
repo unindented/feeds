@@ -16,6 +16,9 @@
     "test:unit": "vitest",
     "test:unit:coverage": "pnpm run test:unit --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:update-snapshots": "run-s test:e2e:update-snapshots:*",
+    "test:e2e:update-snapshots:host": "pnpm run test:e2e --update-snapshots",
+    "test:e2e:update-snapshots:linux": "docker run -it --rm --ipc=host -v \"${PWD}:/var/app\" mcr.microsoft.com/playwright:v1.51.0-noble /bin/bash -c 'cd /var/app; export CI=true; npm i -g corepack; corepack enable; pnpm i; pnpm playwright install; pnpm run test:e2e --update-snapshots'",
     "test:lhci": "pnpm --package @lhci/cli dlx lhci autorun",
     "prepare": "husky"
   },
