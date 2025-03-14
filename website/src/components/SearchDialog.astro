@@ -95,6 +95,8 @@ const t = useTranslations(lang);
       this.#dialog = this.querySelector<HTMLDialogElement>("dialog");
 
       this.#dialog?.addEventListener("click", this.#handleDialogClick);
+
+      this.#initSQLite();
     }
 
     #handleDialogClick = (event: MouseEvent) => {
@@ -104,6 +106,29 @@ const t = useTranslations(lang);
       if (target.nodeName.toLowerCase() === "dialog") {
         this.#dialog?.close();
       }
+    };
+
+    #initSQLite = async () => {
+      const worker = new Worker(
+        new URL("../utils/sqliteWorker.ts", import.meta.url),
+        { type: "module" },
+      );
+      worker.addEventListener("message", ({ data: { type, payload } }) => {
+        switch (type) {
+          case "log-debug":
+            console.debug("[sqlite]", ...payload);
+            break;
+          case "log-info":
+            console.info("[sqlite]", ...payload);
+            break;
+          case "log-warn":
+            console.warn("[sqlite]", ...payload);
+            break;
+          case "log-error":
+            console.error("[sqlite]", ...payload);
+            break;
+        }
+      });
     };
   }
 

@@ -38,10 +38,24 @@ export default defineConfig({
       }),
     },
   },
+  server: {
+    headers: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "Cross-Origin-Opener-Policy": "same-origin",
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "Cross-Origin-Embedder-Policy": "require-corp",
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
     build: {
       assetsInlineLimit: 0,
+    },
+    optimizeDeps: {
+      exclude: ["@sqlite.org/sqlite-wasm"],
+    },
+    worker: {
+      format: "es",
     },
   },
 });

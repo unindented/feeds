@@ -304,7 +304,7 @@ AddDefaultCharset utf-8
                                                frame-ancestors 'none'; \
                                                frame-src 'self'; \
                                                img-src data: 'self'; \
-                                               script-src 'self'; \
+                                               script-src 'self' 'wasm-unsafe-eval'; \
                                                style-src 'self'; \
                                                upgrade-insecure-requests" \
                                               "expr=%{CONTENT_TYPE} =~ m#text\/(html|javascript)|image\/svg+xml#i"
