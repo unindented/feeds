@@ -13,7 +13,7 @@ jobs:
     # regression testing across different operating systems.
     # https://playwright.dev/docs/ci#via-containers
     container:
-      image: mcr.microsoft.com/playwright:v1.51.0-noble@sha256:dcc7a57c035cea22d94ef62edaf4e63b2d84352d990f936424344c6b05a3d9b4
+      image: mcr.microsoft.com/playwright:v1.51.1-noble@sha256:146d046a8d79a1b3a87596c4457b0b1c47f811bf4fc2cc1b99e873ae7f1cbbbd
     env:
       # Firefox is unable to launch if the `HOME` folder isn't owned by the
       # current user.
@@ -43,7 +43,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Set up Node ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
@@ -86,7 +86,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Set up Node ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
