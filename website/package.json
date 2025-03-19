@@ -12,7 +12,7 @@
   "dependencies": {
     "@feeds/shared": "workspace:*",
     "@tailwindcss/vite": "4.0.14",
-    "astro": "5.5.2",
+    "astro": "5.5.3",
     "invokers-polyfill": "0.5.2",
     "tailwindcss": "4.0.14"
   },
