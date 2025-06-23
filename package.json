@@ -44,14 +44,14 @@
     "listr2": "8.3.3",
     "memfs": "4.17.2",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.6.13",
     "typescript": "5.8.3",
     "typescript-eslint": "8.34.1",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.2",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
