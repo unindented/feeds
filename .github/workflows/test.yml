@@ -13,7 +13,7 @@ jobs:
     # regression testing across different operating systems.
     # https://playwright.dev/docs/ci#via-containers
     container:
-      image: mcr.microsoft.com/playwright:v1.53.1-noble@sha256:cf7c341e04c9cf6c4c11a57ad5bcd295ebad2d35abda08c0687e28fe0a62ce49
+      image: mcr.microsoft.com/playwright:v1.53.2-noble@sha256:60c416740c425693f774300baedb27be5190d12389ed8524d639ca203347258f
     env:
       # Firefox is unable to launch if the `HOME` folder isn't owned by the
       # current user.
