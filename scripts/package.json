@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@feeds/shared": "workspace:*",
-    "listr2": "9.0.0"
+    "listr2": "9.0.1"
   },
   "devDependencies": {}
 }
