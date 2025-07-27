@@ -63,8 +63,8 @@ importers:
         specifier: 9.0.1
         version: 9.0.1
       memfs:
-        specifier: 4.20.0
-        version: 4.20.0
+        specifier: 4.22.1
+        version: 4.22.1
       npm-run-all2:
         specifier: 8.0.4
         version: 8.0.4
@@ -2275,8 +2275,8 @@ packages:
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
 
-  memfs@4.20.0:
-    resolution: {integrity: sha512-VKta4Y+0CPo0NvYMOE7vvhaNe4K5WTP077G1S4PS0h0joX0f15NosPT6y48rOpKLCh48nnlgY/TdRPwiKCIIkg==}
+  memfs@4.22.1:
+    resolution: {integrity: sha512-uycbtnFiSEgN+bD+UUoM4yjcZGc0N/XGxgvpag+LiHE5AgDPjMq+0n4vQqKAA/dinEWqk0DeYSVZbSearHDYzw==}
     engines: {node: '>= 4.0.0'}
 
   memorystream@0.3.1:
@@ -6017,7 +6017,7 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
-  memfs@4.20.0:
+  memfs@4.22.1:
     dependencies:
       '@jsonjoy.com/json-pack': 1.2.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.5.0(tslib@2.8.1)
