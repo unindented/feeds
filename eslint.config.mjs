@@ -22,6 +22,7 @@
 
 import eslint from "@eslint/js";
 import vitestPlugin from "@vitest/eslint-plugin";
+import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginLicenseHeader from "eslint-plugin-license-header";
@@ -30,7 +31,7 @@ import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ["**/.*/", "**/coverage/", "**/dist/"] },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
