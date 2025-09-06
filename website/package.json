@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@feeds/shared": "workspace:*",
-    "@tailwindcss/vite": "4.1.12",
+    "@tailwindcss/vite": "4.1.13",
     "astro": "5.13.5",
     "invokers-polyfill": "0.5.7",
-    "tailwindcss": "4.1.12"
+    "tailwindcss": "4.1.13"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4"
