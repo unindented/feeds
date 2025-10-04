@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@rowanmanning/feed-parser": "2.1.1",
-    "fast-xml-parser": "5.2.5"
+    "fast-xml-parser": "5.3.0"
   },
   "devDependencies": {}
 }
