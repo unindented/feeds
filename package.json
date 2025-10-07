@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.37.0",
-    "@playwright/test": "1.55.1",
+    "@playwright/test": "1.56.0",
     "@tsconfig/node22": "22.0.2",
     "@tsconfig/strictest": "2.0.6",
     "@types/node": "22.18.8",
@@ -42,16 +42,16 @@
     "husky": "9.1.7",
     "lint-staged": "16.2.3",
     "listr2": "9.0.4",
-    "memfs": "4.48.1",
+    "memfs": "4.49.0",
     "npm-run-all2": "8.0.4",
     "prettier": "3.6.2",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.6.14",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.45.0",
+    "typescript-eslint": "8.46.0",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@10.18.1",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
